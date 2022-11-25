@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+C:\Repositório local\Pedra, papel, tesoura JAVA\.metadata\.plugins\org.eclipse.jdt.core
+1498184783.index
+1865797976.index
+1116260722.index
