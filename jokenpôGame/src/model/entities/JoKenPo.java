@@ -22,8 +22,33 @@ public record JoKenPo(
 				System.out.println("\tPONTO PARA " + IA.getName() + "\n");
 				IA.incrementScore(); // Contabiliza o score do player
 			}
+			
+			int iaChoice = iaChoice();
+			
+			System.out.print("\n" + userChoice + " X " + iaChoice + "\n");
+			
+			int result = userChoice - iaChoice;
+			
+			winnerRound(result);
 		}
 		
+	}
+	
+	// Lógica de pontuação de jogador por rodada
+	private void winnerRound (int result) {
+		String winnerRound;
+		
+		if (result == 0) {
+			winnerRound = "EMPATE!";
+		}
+		else if (result == -1 || result == 2) {
+			IA.incrementScore();
+			winnerRound = IA().getName();
+		}
+		else {
+			user.incrementScore();
+			winnerRound = user.getName();
+		}
 	}
 	
 	// Método responsável pela escolha da jogada do Player IA (Máquina)
