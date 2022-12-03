@@ -21,6 +21,7 @@ public record JoKenPo(
 				System.out.println("\nJOGADA INVÁLIDA! (1, 2 OU 3): ");
 				System.out.println("\tPONTO PARA " + IA.getName() + "\n");
 				IA.incrementScore(); // Contabiliza o score do player
+				continue;
 			}
 			
 			int iaChoice = iaChoice();
@@ -34,10 +35,31 @@ public record JoKenPo(
 		
 	}
 	
+	// Método que exibe o vencedor do jogo
+	public void showFinalResult () {
+		System.out.println("\n*****************************************************\n");
+		
+		int finalScoreUser = user.getScore();
+		int finalScoreIA = IA.getScore();
+	
+		System.out.println("\n\tPLACAR FINAL: " + user.getName() + " " + user.getScore()
+		+ " X " + IA.getScore() + " " + IA.getName());
+		
+		if (finalScoreUser == finalScoreIA) {
+			System.out.println("\t\tEMPATE!");
+		}
+		else {
+			String finalWinner = (finalScoreUser > finalScoreIA)? user.getName() :IA.getName();
+			System.out.println("\t\tCAMPEÃO: " + finalWinner.toUpperCase());
+		}
+		
+		System.out.println("\n*****************************************************\n");
+	}
+	
+	
 	// Lógica de pontuação de jogador por rodada
 	private void winnerRound (int result) {
 		String winnerRound;
-		
 		if (result == 0) {
 			winnerRound = "EMPATE!";
 		}
@@ -47,8 +69,9 @@ public record JoKenPo(
 		}
 		else {
 			user.incrementScore();
-			winnerRound = user.getName();
+			winnerRound = user().getName();
 		}
+		System.out.println("\nVencedor do round: " + winnerRound + "\n");
 	}
 	
 	// Método responsável pela escolha da jogada do Player IA (Máquina)
