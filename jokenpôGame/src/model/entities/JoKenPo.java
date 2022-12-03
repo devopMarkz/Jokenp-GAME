@@ -1,5 +1,6 @@
 package model.entities;
 
+import java.util.Random;
 import java.util.Scanner;
 
 // Classe que contém a lógica do jogo
@@ -13,7 +14,7 @@ public record JoKenPo(
 	public void toPlay() {
 		System.out.println("\n*******  SEJA BEM VINDO(A), " + user.getName() + "  *******\n");
 		
-		for (int i = 0; i < rounds; i++) {
+		for (int i = 1; i <= rounds; i++) {
 			int userChoice = userChoice();
 			
 			if (userChoice < 1 || userChoice > 3) {
@@ -25,9 +26,14 @@ public record JoKenPo(
 		
 	}
 	
+	// Método responsável pela escolha da jogada do Player IA (Máquina)
+	private int iaChoice () {
+		Random jogada = new Random();
+		return jogada.nextInt(3) + 1;
+	}
+	
 	// Método responsável pela escolha da jogada do Player user
 	private int userChoice () {
-
 		Scanner sc = new Scanner (System.in);
 		
 		System.out.println("1 - PEDRA");
@@ -37,6 +43,5 @@ public record JoKenPo(
 		int userChoice = sc.nextInt();
 		
 		return userChoice;
-
 	}
 }
