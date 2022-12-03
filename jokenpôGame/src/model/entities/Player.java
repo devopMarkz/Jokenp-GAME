@@ -28,5 +28,13 @@ public class Player {
 	public Integer getScore() {
 		return score;
 	}
+	public void setScore (int score) {
+		this.score = score;
+	}
+	
+	// Métodos da classe
+	public void incrementScore () {
+		setScore(getScore() + 1); // Método que contabiliza o score do player
+	}
 	
 }
