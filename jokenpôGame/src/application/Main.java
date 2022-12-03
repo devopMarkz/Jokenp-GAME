@@ -31,10 +31,9 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		
 		JoKenPo jokenpo = startGame(); // Instanciação do objeto responsável por conter a lógica do jogo
 		jokenpo.toPlay(); // Chamada do método responsável por armazenar os comandos do jogo
-
+		jokenpo.showFinalResult();
 	}
 
 }
