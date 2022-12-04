@@ -3,6 +3,8 @@ package model.entities;
 import java.util.Random;
 import java.util.Scanner;
 
+import model.exceptions.UserChoiceException;
+
 // Classe que contém a lógica do jogo
 public record JoKenPo(
 		Player user,
@@ -15,12 +17,15 @@ public record JoKenPo(
 		System.out.println("\n*******  SEJA BEM VINDO(A), " + user.getName() + "  *******\n");
 		
 		for (int i = 1; i <= rounds; i++) {
-			int userChoice = userChoice();
-			
-			if (userChoice < 1 || userChoice > 3) {
+			int userChoice;
+
+			try { 			// Trata erros de entrada em tempo de execução
+				userChoice = userChoice();
+			}
+			catch (RuntimeException invalidNumber) {
 				System.out.println("\nJOGADA INVÁLIDA! (1, 2 OU 3): ");
 				System.out.println("\tPONTO PARA " + IA.getName() + "\n");
-				IA.incrementScore(); // Contabiliza o score do player
+				IA.incrementScore(); // Contabiliza o score do player (da máquina, no caso de jogada inválida)
 				continue;
 			}
 			
@@ -32,7 +37,6 @@ public record JoKenPo(
 			
 			winnerRound(result);
 		}
-		
 	}
 	
 	// Método que exibe o vencedor do jogo
@@ -81,7 +85,7 @@ public record JoKenPo(
 	}
 	
 	// Método responsável pela escolha da jogada do Player user
-	private int userChoice () {
+	private int userChoice () throws UserChoiceException {
 		Scanner sc = new Scanner (System.in);
 		
 		System.out.println("1 - PEDRA");
@@ -89,6 +93,9 @@ public record JoKenPo(
 		System.out.println("3 - TESOURA");
 		System.out.print("Informe sua jogada: ");
 		int userChoice = sc.nextInt();
+		
+		// Lança uma exceção que exibe mensagem de erro caso o usuário escolha números fora do limite
+		if (userChoice < 1 || userChoice > 3) throw new UserChoiceException();
 		
 		return userChoice;
 	}
